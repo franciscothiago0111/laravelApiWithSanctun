@@ -2,4 +2,4 @@
 
 <h4>Documentação</h4>
 
-<a href="[doc:introduction](https://laravel.com/docs/9.x/sanctum#main-content)" target="_blank">Introduction</a>
+<a href="https://laravel.com/docs/9.x/sanctum#main-content" target="_blank">Laravel Sanctum</a>
