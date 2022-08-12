@@ -2,31 +2,43 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Services\AuthService;
-
-
+use App\Services\ProductService;
 
 class ProductController extends Controller
-{   
+{
+    protected $service;
+    
+    public function __construct(ProductService $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return $this->service->index();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, AuthService $authService)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'slug' => 'required',
             'price' => 'required'
         ]);
-      
 
-        return Product::create($request->all());
+        return $this->service->store($request->all());
     }
 
     /**
@@ -37,12 +49,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::find($id);
-    }
-
-    public function search($name)
-    {
-        return Product::where('name', 'like', '%'.$name.'%')->get();
+        return $this->service->show($id);
     }
 
     /**
@@ -54,17 +61,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
-
         $request->validate([
             'name' => 'required',
             'slug' => 'required',
             'price' => 'required'
         ]);
         
-        $product->update($request->all());
-
-        return $product;
+        return $this->service->update($request->all(), $id);
     }
 
     /**
@@ -75,11 +78,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return Product::destroy($id);
-    }
-
-    public function index()
-    {
-        return Product::all();
+        return $this->service->destroy($id);
     }
 }
