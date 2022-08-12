@@ -1,4 +1,4 @@
-<h2>Api Rest feita com Laravel e o pacote Sanctun</h2>
+<h2>Api Rest feita com Laravel e o pacote Sanctun com tokens abilities para as rotas do tipo post, put e delete</h2>
 
 <h4>Introdução</h4>
 <p>
